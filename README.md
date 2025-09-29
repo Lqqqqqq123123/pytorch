@@ -18,6 +18,6 @@
 学了一些pandas以及numpy的知识，也用numpy实现了最简单的神经网络的批处理（也就是把训练集 n * xxx）划分为（batch_size * xxx），具体就是用个for循环，当然，为了提升python代码能力，已经开始把c++的板子用python实现了，但是来这个深度学习仓库记录有点违和...
 
 **比较重要的知识：**
-正常list切片：[start : end : step]；numpy这种方式，还支持布尔切片（可以是布尔数组，也可以是布尔条件）
+正常list切片：[start : end : step]；numpy这种方式，还支持布尔切片（可以是布尔数组，也可以是布尔条件）,花式索引（其实就是很多索引对）
 而pandas得数据结构分为series以及dataframe，其中series是一维带标签数组，默认为从0开始的数字索引；dataframe是一个二维表格数据，也就是既有行索引，也有列索引。
 
