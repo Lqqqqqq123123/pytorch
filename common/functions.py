@@ -36,22 +36,22 @@ def sigmoid(x):
 """
 
 
-def Tanh(x):
+def tanh(x):
     return np.tanh(x)
 
 
-def ReLu(x):
+def reLu(x):
     return np.maximum(0, x)
 
 
-def LeakReLu(x, a=0.01):
+def leakReLu(x, a=0.01):
     if x > 0:
         return x
     else:
         return a * x
 
 
-def Softmax(x):
+def softmax(x):
     if x.ndim == 2:
         x = x - np.max(x, axis=1, keepdims=True)
         return np.exp(x) / np.sum(np.exp(x), axis=1, keepdims=True)
@@ -59,11 +59,7 @@ def Softmax(x):
         return np.exp(x - np.max(x)) / np.sum(np.exp(x))
 
 
-def Identity(x):
+def identity(x):
     return x
 
 
-if __name__ == '__main__':
-    x = np.array([[1, 3, 5, 10], [2, 4, 6, 8]])
-    print(Softmax(x))
-    print(np.sum(Softmax(x), axis=1))
