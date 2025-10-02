@@ -10,17 +10,17 @@ from common.loss import cross_entropy
 class SimpleNet:
     # 初始化
     def __init__(self):
-        self.W = np.random.randn(2, 3)  # 初始化权重
+        self.W = np.random.randn(2, 3)
     
     # forward传播
-    def forward(self, X):
-        a = X @ self.W # 使用sigmoid激活函数
-        return softmax(a)
+    def forward(self, x):
+        return np.dot(x, self.W)
     
     # 计算损失
-    def loss(self, x, y):
-        y_hat = self.forward(x)
-        return cross_entropy(y, y_hat)
+    def loss(self, x, t):
+        y = self.forward(x)
+        y = softmax(y)
+        return cross_entropy(t, y) 
 
 # 主流程
 if __name__ == '__main__':
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     net = SimpleNet()
     # 3.计算梯度
 
-    f = lambda w: net.loss(x, y)
+    f = lambda _: net.loss(x, y)
     dW = numerical_gradient(f, net.W)
     print(dW)
 

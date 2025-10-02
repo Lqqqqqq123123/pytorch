@@ -37,3 +37,18 @@ def numerical_gradient(f, X):
             grad[i] = _numercal_gradient(f, X[i])
         return grad 
 
+
+# SGD实现，在深度学习中，SGD指代的是mini-batch SGD
+
+
+def test():
+    def f(x):
+        return np.sum(x**2)
+
+    w = np.array([[3.0, 4.0], [0.0, 2.0]])
+    grad = numerical_gradient(f, w)
+    print(grad)
+    grad = numerical_gradient(f, w.reshape(-1))
+    print(grad)
+
+test()
