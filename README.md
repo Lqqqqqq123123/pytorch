@@ -1,4 +1,4 @@
-# E:\Code_Space\python_code\1.deepLearning\imgs说明
+说明
 
 该仓库为深度学习代码学习，希望能在2个月内入门深度学习代码！！！
 
