@@ -3,9 +3,10 @@ sys.path.append(os.path.dirname(os.getcwd()))
 import numpy as np
 import matplotlib.pyplot as plt
 from common.load_data import load_data
-from chapter03.TwoLayerNet import TwoLayerNet
+from chapter04.TwoLayerNet import TwoLayerNet
 
 def main():
+    
     """
     训练手写数字识别模型的主函数
     
@@ -19,7 +20,7 @@ def main():
     
     训练过程中会输出每轮训练的准确率，并最终显示训练集和测试集准确率的变化曲线
     """
-    
+     
     # 1.加载数据
     x_train, x_test, y_train, y_test = load_data()
 
@@ -27,7 +28,7 @@ def main():
     net = TwoLayerNet(784, 100, 10)
 
     # 3.设置超参数
-    epochs, batch_size, lr = 10, 64, 0.02
+    epochs, batch_size, lr = 20, 64, 0.02
     n = x_train.shape[0]
     iter_per_epoch = np.ceil(n / batch_size)
     iters_num = int(iter_per_epoch * epochs)
@@ -44,25 +45,27 @@ def main():
         x_batch = x_train[batch_mask]
         y_batch = y_train[batch_mask]
 
-        # 4.2 计算梯度
-        grads = net.gradient(x_batch, y_batch)
 
+        # 4.2 反向传播
+        grads = net.gradient(x_batch, y_batch)
+        loss = net.last_layer.loss
+        train_loss_list.append(loss)
         # 4.3 更新参数
         for key in ('W1', 'b1', 'W2', 'b2'):
             net.params[key] -= lr * grads[key]
         
-        # 4.4 计算并保存损失
-        loss = net.loss(x_batch, y_batch)
-        train_loss_list.append(loss)
+        
 
-        # 4.5 计算并保存准确率
+        # 4.4 计算并保存准确率
         # 每轮迭代都计算一次准确率
         if i % iter_per_epoch == 0:
             train_acc = net.accuracy(x_train, y_train)
             test_acc = net.accuracy(x_test, y_test)
             train_acc_list.append(train_acc)
             test_acc_list.append(test_acc) 
-            print(f'epoch: {i // iter_per_epoch + 1}, train_acc: {train_acc}, test_acc: {test_acc}')
+            print(f'epoch: {int(i // iter_per_epoch + 1)}, loss:{loss:.2f}, train_acc: {train_acc}, test_acc: {test_acc}')
+
+            
 
     # 画图
     x = np.arange(len(train_acc_list))
@@ -70,6 +73,7 @@ def main():
     plt.plot(x, test_acc_list, label='test_acc', linestyle='--') 
     plt.legend(loc='best'); plt.show()
 
-
 if __name__ == '__main__':
+
     main()
+

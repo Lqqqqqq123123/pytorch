@@ -52,6 +52,7 @@ def leakReLu(x, a=0.01):
 
 
 def softmax(x):
+    
     if x.ndim == 2:
         x = x - np.max(x, axis=1, keepdims=True)
         return np.exp(x) / np.sum(np.exp(x), axis=1, keepdims=True)

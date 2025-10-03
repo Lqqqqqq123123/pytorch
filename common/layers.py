@@ -1,7 +1,8 @@
 import os, sys
 import numpy as np
-sys.path.append(os.pardir)
-from common.functions import sigmoid
+sys.path.append(os.path.dirname(os.getcwd()))
+from common.functions import sigmoid, softmax
+from common.loss import cross_entropy
 # 各种层结构
 # Relu
 class Relu:
@@ -59,7 +60,7 @@ class Affine:
     # forward
     def forward(self, X):
         
-        self.origin_shape = X.shape
+        self.origin_shape = X.shape; self.X = X
         X = X.reshape(X.shape[0], -1)
 
         y = np.dot(X, self.W) + self.b
@@ -78,3 +79,51 @@ class Affine:
         self.X = self.X.reshape(self.origin_shape)
         # 梯度的反向传播
         return out 
+    
+
+
+# SoftmaxWithLoss
+class SoftmaxWithLoss:
+    
+    # init
+    def __init__(self):
+        self.y = None
+        self.y_hat = None
+        self.loss = None
+
+    # forward
+    def forward(self, x, t):
+        # 保存y,y_hat,方便计算梯度
+        self.y_hat = softmax(x); self.y = t
+        # 计算损失
+        self.loss = cross_entropy(self.y, self.y_hat)
+        return self.loss
+    
+    # backward
+    # def backward(self):
+    #     # 如果y不是独热编码，则转换为独热编码   
+    #     if self.y.ndim == 1:
+    #         num_classes = self.y_hat.shape[1]
+    #         self.y = np.eye(num_classes)[self.y]
+
+    #     return self.y_hat - self.y
+    
+    def backward(self):
+        n = self.y_hat.shape[0]
+        if self.y.size == self.y_hat.size:
+            return (self.y_hat - self.y) / n
+        else:
+            self.y_hat[np.arange(n), self.y] -= 1
+            return self.y_hat / n
+# test()
+def test_softmax_with_loss():
+    x = np.array([[0.1, 0.2, 0.3, 0.4, 0.5]])
+    #t = np.array([[0, 0, 0, 1, 0]])
+    t = np.array([3])
+
+    loss = SoftmaxWithLoss()
+    loss.forward(x, t)
+    print(loss.backward())
+
+if __name__ == '__main__':
+    test_softmax_with_loss()

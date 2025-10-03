@@ -45,12 +45,10 @@ class TwoLayerNet:
     # 计算梯度
     # x: 输入数据 t: 真实标签
     def gradient(self, x, t):
-
-        # 
+        # 包装损失函数
         loss_W = lambda _:self.loss(x, t)
 
         grads = {}
-        
         grads['W1'] = numerical_gradient(loss_W, self.params['W1'])
         grads['W2'] = numerical_gradient(loss_W, self.params['W2'])
         grads['b1'] = numerical_gradient(loss_W, self.params['b1'])
