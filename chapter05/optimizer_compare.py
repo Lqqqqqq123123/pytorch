@@ -12,7 +12,7 @@ def f(x, y):
 def f_gard(x, y):
     return x / 10, y * 2
 
-# 定义初始点
+# 定义初始点 
 init_pos = (-7.0, 2.0)
 idx = 1
 # 创建优化器实例

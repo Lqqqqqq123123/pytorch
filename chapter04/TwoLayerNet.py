@@ -1,10 +1,11 @@
 import os, sys
 sys.path.append(os.path.dirname(os.getcwd()))
+
 # 重新定义TwolayerNet
 from common.gradient import numerical_gradient
 from common.layers import * 
 from collections import OrderedDict # 有序字典（这里的有序只是保存了插入的顺序）
-import numpy as np
+
 
 
 class TwoLayerNet:
@@ -69,7 +70,7 @@ class TwoLayerNet:
     # 梯度计算方法----反向传播
     def gradient(self, x, t):
         
-        # 梯度清0 todo
+        # todo:梯度清0
 
         # 先进行前向传播
         self.loss(x, t) 

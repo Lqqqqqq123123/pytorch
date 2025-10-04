@@ -50,5 +50,3 @@ def test():
     print(grad)
     grad = numerical_gradient(f, w.reshape(-1))
     print(grad)
-
-test()
