@@ -80,7 +80,11 @@ $$
 
 ### 第六天 2025.10.04
 
-​	今天正式开始了pytorch的学习，主要就是tensor的创建、运算、一些统计方法（max,min,unique,sort,sum,std...)
+​	今天正式开始了pytorch的学习，主要就是tensor的创建、运算、一些统计方法（max,min,unique,sort,sum,std...,这些方法搞清楚dim的含义就行了)
+
+### 第七天 2025.10.05
+    今天主要是tensor的切片，和numpy很想，比如：简单索引，范围索引，列表索引，花式索引等等。其次就是pytorch的自动求导机制（计算图、叶子节点、tensor.grad, Tensor.tensor(requires_grad=True)，pytorch中计算图是动态构建的，它会跟踪开了梯度的tensor，然后构建计算图，反向传播的起点是损失值，通过loss.backward()就可以计算出梯度了，非常强大！）
+    
 
 
 
