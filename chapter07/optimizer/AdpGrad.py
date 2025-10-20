@@ -8,17 +8,16 @@ import matplotlib.pyplot as plt
 def f(X):
     return 0.05 * X[0]**2 + X[1]**2
 
-    # 定义一些超参数
-lr, iter_num, gamma, milestones = 0.8, 500, 0.7, [10, 50, 300, 400]
+# 定义一些超参数
+lr, iter_num = 0.2, 300
 
 # 定义初始点
 X = torch.tensor([-7.0, 2.0], requires_grad=True)
 
 # 定义优化器
-optimizer = optim.SGD([X], lr=lr)
-# 定义学习率衰减
-scheduler = optim.lr_scheduler.MultiStepLR(optimizer, milestones=milestones, gamma=gamma)
- 
+# optimizer = optim.Adagrad([X], lr=lr)
+# optimizer = optim.RMSprop([X], lr=lr, alpha=0.2)
+optimizer = optim.Adam([X], lr=lr, betas=(0.9, 0.999))
 # 迭代过程
 X_history, lr_history = [], []
 for i in range(iter_num):
@@ -33,8 +32,7 @@ for i in range(iter_num):
 
     # 更新参数
     optimizer.step()
-    # 更新学习率
-    scheduler.step()
+   
 
     # 清零梯度e
     optimizer.zero_grad()
